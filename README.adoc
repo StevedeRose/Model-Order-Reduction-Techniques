@@ -1,0 +1,11 @@
+= Project Scientific Computing, Design of a Thermal Fin
+
+== Model Order Reduction Techniques
+
+=== Problem Set 1: RB for Linear Affine Elliptic Problems
+
+=== Problem Set 2: RB for Linear Affine Elliptic Problems
+
+=== Problem Set 3: A Posteriori Error Bounds, Greedy Sampling Procedure
+
+=== Problem Set 4: Parabolic Problems
