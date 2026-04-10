@@ -1,11 +1,104 @@
-= Project Scientific Computing, Design of a Thermal Fin
+= Project Scientific Computing: Design of a Thermal Fin
 
 == Model Order Reduction Techniques
 
+This project explores *Model Order Reduction (MOR)* techniques applied to a parametrized thermal fin problem. The goal is to efficiently approximate high-fidelity Finite Element (FE) solutions using the *Reduced Basis (RB)* method, dramatically reducing computational cost while maintaining accuracy.
+
+The thermal fin is governed by a parametrized elliptic or parabolic PDE, where the parameters typically include fin conductivities (k₁, k₂, k₃, k₄) and the Biot number (Bi). Each problem set builds upon the previous, introducing more sophisticated mathematical tools.
+
+=== Repository Structure
+
+[cols="1,2"]
+|===
+| File / Folder | Description
+
+| `Problem1.pdf`
+| Analytical solutions and theoretical derivations for Problem Set 1
+
+| `Problem2.ipynb`
+| Jupyter notebook implementing the Reduced Basis method for an elliptic problem
+
+| `Problem3.ipynb`
+| Jupyter notebook for a posteriori error bounds and the greedy sampling procedure
+
+| `Problem4.ipynb`
+| Jupyter notebook extending the RB method to parabolic (time-dependent) problems
+
+| `FE_grid.mat`
+| Finite element mesh data
+
+| `FE_matrix.mat`
+| Assembled finite element stiffness matrices
+
+| `FE_matrix_mass.mat`
+| Assembled finite element mass matrix (used in Problem Set 4)
+
+| `RB_sample.mat`
+| Pre-computed reduced basis sample sets (S_N) for various parameter configurations
+
+| `DeltaMaxRel.npy`, `Z Greedy.npy`, `Échantillon Greedy.npy`
+| Pre-computed greedy algorithm results (error indicators and RB snapshots)
+
+| `problem-set-{1..4}.pdf`
+| Problem statement sheets for each problem set
+|===
+
 === Problem Set 1: RB for Linear Affine Elliptic Problems
+
+Introduces the Reduced Basis framework for a linear, parameter-affine elliptic PDE modelling a steady-state thermal fin.
+Key topics include:
+
+* Finite element discretization of the thermal fin problem
+* Offline/online decomposition of the RB method
+* Construction of the reduced basis matrix Z using prescribed snapshots
+* Gram-Schmidt orthonormalization and its effect on conditioning
+* Operation count analysis for the online phase
+* Convergence study over test samples and CPU time comparison
 
 === Problem Set 2: RB for Linear Affine Elliptic Problems
 
+Extends Problem Set 1 with one- and two-parameter studies:
+
+* *1-parameter case I*: Uniform conductivities k ∈ [0.1, 10], fixed Bi = 0.1
+* *1-parameter case II*: Fixed conductivities {k₁, k₂, k₃, k₄} = {0.4, 0.6, 0.8, 1.2}, varying Bi ∈ [0.01, 1]
+* *2-parameter case*: Uniform conductivities and varying Bi simultaneously
+* Convergence and CPU time analyses across coarse, medium, and fine meshes
+* Demonstration that the minimum N = 3 achieves 1% relative output error
+
 === Problem Set 3: A Posteriori Error Bounds, Greedy Sampling Procedure
 
+Introduces rigorous a posteriori error certification and automated basis construction:
+
+* Min-θ approach to compute a lower bound α_LB(μ) for the coercivity constant
+* A posteriori error bounds for both energy norm and output
+* Effectivity analysis of the error bounds
+* Implementation of the *greedy sampling algorithm* to automatically select optimal parameter snapshots
+* Comparison of greedy-selected samples with pre-computed reference samples
+
 === Problem Set 4: Parabolic Problems
+
+Extends the RB methodology to time-dependent (parabolic) problems:
+
+* Offline/online RB decomposition for a parabolic PDE
+* Time-stepping with the implicit Euler scheme
+* Construction of reduced mass and stiffness matrices
+* A posteriori error bounds using Riesz representation of the residual
+* Spatio-temporal energy norm tracking over time
+
+=== Prerequisites
+
+The notebooks require Python 3 with the following packages:
+
+[source,bash]
+----
+pip install numpy scipy matplotlib jupyter
+----
+
+=== Usage
+
+Open any of the Jupyter notebooks to explore the implementations:
+
+[source,bash]
+----
+jupyter notebook Problem2.ipynb
+----
